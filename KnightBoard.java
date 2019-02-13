@@ -12,8 +12,8 @@ public class KnightBoard{
     for (int r = 0; r < board.length; r++){
       for (int c = 0; c < board[r].length; c++){
         if (board[r][c] < 10) output += " "; //space in front of single digit numbers
-        output += "" + board[r][c]; //add number to output
-        if (c == board[r].length - 1) output += "\n"; //new line 
+        output += board[r][c] + " "; //add number to output
+        if (c == board[r].length - 1) output += "\n"; //new line
       }
     }
     return output;
