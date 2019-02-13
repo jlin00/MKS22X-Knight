@@ -2,10 +2,21 @@ public class KnightBoard{
   private int[][] board;
   private int[][] moves;
 
-  public KnightBoard(){}
+  public KnightBoard(int startingRows, int startingCols){
+    board = new int[startingRows][startingCols];
+    moves = new int[startingRows][startingCols];
+  }
 
   public String toString(){
-    return "";
+    String output = "";
+    for (int r = 0; r < board.length; r++){
+      for (int c = 0; c < board[r].length; c++){
+        if (board[r][c] < 10) output += " "; //space in front of single digit numbers
+        output += "" + board[r][c]; //add number to output
+        if (c == board[r].length - 1) output += "\n"; //new line 
+      }
+    }
+    return output;
   }
 
   /**
