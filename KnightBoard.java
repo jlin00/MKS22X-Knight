@@ -43,8 +43,15 @@ public class KnightBoard{
 
   //helper method for solve
   private boolean solveH(int row ,int col, int level){
+    if (row < 0 || col < 0) return false; //if any moves go out of bounds return false
+    if (row >= board.length || col >= board[row].length) return false; //if any moves go out of bounds return false
+    if (board[row][col] != 0) return false; //if knight has already been to that position
+    board[row][col] = level; //else set position to move number
     int[][] diff = {{1,2},{1,-2},{-1,2},{-1,-2},{2,1},{2,-1},{-2,1},{-2,-1}}; //8 possible moves for a knight
-    if (level > row * col) return true;
+    if (level > row * col) return true; //if filled up board
+    for (int i = 0; i < diff.length; i++){ //loop through possible moves
+      if (solveH(row+diff[i][0], col+diff[i][1],level+1)) return true; //try moving knight
+    }
     return false;
   }
 
