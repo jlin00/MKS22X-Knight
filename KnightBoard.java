@@ -13,7 +13,8 @@ public class KnightBoard{
     for (int r = 0; r < board.length; r++){
       for (int c = 0; c < board[r].length; c++){
         if (board[r][c] < 10) output += " "; //space in front of single digit numbers
-        output += board[r][c] + " "; //add number to output
+        if (board[r][c] == 0) output += "_ ";
+        else output += board[r][c] + " "; //add number to output
         if (c == board[r].length - 1) output += "\n"; //new line
       }
     }
@@ -35,6 +36,8 @@ public class KnightBoard{
   */
   public boolean solve(int startingRow, int startingCol){
     if (!isEmpty()) throw new IllegalStateException(); //exception
+    if (startingRow < 0 || startingCol < 0) throw new IllegalArgumentException();
+    if (startingRow >= board.length || startingCol >= board[startingRow].length) throw new IllegalArgumentException();
     return solveH(startingRow,startingCol,1); //call helper
   }
 
@@ -51,6 +54,8 @@ public class KnightBoard{
   */
   public int countSolutions(int startingRow, int startingCol){
     if (!isEmpty()) throw new IllegalStateException(); //exception
+    if (startingRow < 0 || startingCol < 0) throw new IllegalArgumentException();
+    if (startingRow >= board.length || startingCol >= board[startingRow].length) throw new IllegalArgumentException();
     return 0;
   }
 
