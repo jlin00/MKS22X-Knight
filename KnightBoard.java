@@ -1,6 +1,6 @@
 public class KnightBoard{
-  private int[][] board;
-  private int[][] moves;
+  private int[][] board; //keeps track of squares visited
+  private int[][] positions; //keeps track of potential positions for optimization
 
   public KnightBoard(int startingRows, int startingCols){
     board = new int[startingRows][startingCols];
@@ -24,12 +24,12 @@ public class KnightBoard{
   *@throws IllegalArgumentException when either parameter is negative or out of bounds.
   */
   public boolean solve(int startingRow, int startingCol){
-    return true;
+    return solveH(startingRow,startingCol,1);
   }
 
   //helper method for solve
   private boolean solveH(int row ,int col, int level){
-    return true;
+    int[][] diff = {{1,2},{1,-2},{-1,2},{-1,-2},{2,1},{2,-1},{-2,1},{-2,-1}}; //8 possible moves for a knight 
   }
 
   /**
