@@ -31,6 +31,14 @@ public class KnightBoard{
     return true;
   }
 
+  public void clear(){
+    for (int r = 0; r < board.length; r++){
+      for (int c = 0; c < board[r].length; c++){
+        board[r][c] = 0;
+      }
+    }
+  }
+
   public boolean move(int row, int col, int level){
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false; //if any moves go out of bounds return false
     if (board[row][col] != 0) return false; //if knight has already been here, return false
@@ -76,13 +84,14 @@ public class KnightBoard{
   }
 
   public int countH(int row, int col, int level){
-    if (level > (board.length * board[0].length)) return 1;
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return 0; //if any moves go out of bounds return false
+    if (board[row][col] != 0) return 0;
+    if (level == (board.length * board[0].length)) return 1;
     int count = 0;
     for (int i = 0; i < diff.length; i++){ //loops through moves
-      if (move(row,col,level)){
-        count += countH(row + diff[i][0], col + diff[i][1], level+1); //adds to count
-        board[row][col] = 0; //removes knight
-      }
+      board[row][col] = level;
+      count += countH(row + diff[i][0], col + diff[i][1], level+1); //adds to count
+      board[row][col] = 0; //removes knight
     }
     return count;
   }

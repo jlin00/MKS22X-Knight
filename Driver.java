@@ -1,15 +1,14 @@
 public class Driver{
   public static void main(String[] args) {
-    KnightBoard k1 = new KnightBoard(5,6);
-    KnightBoard k2 = new KnightBoard(4,3);
+    KnightBoard k2 = new KnightBoard(1,1);
     KnightBoard k3 = new KnightBoard(2,2);
-    KnightBoard k4 = new KnightBoard(3,9);
-    KnightBoard k5 = new KnightBoard(1,3);
-    KnightBoard k6 = new KnightBoard(1,1);
-    KnightBoard k8 = new KnightBoard(2,5);
-    KnightBoard k9 = new KnightBoard(3,8);
+    KnightBoard k4 = new KnightBoard(3,3);
+    KnightBoard k5 = new KnightBoard(4,4);
+    KnightBoard k6 = new KnightBoard(5,5);
+    KnightBoard k7 = new KnightBoard(6,6);
+    KnightBoard k8 = new KnightBoard(7,7);
+    KnightBoard k9 = new KnightBoard(8,8);
 
-    System.out.println(k1);
     System.out.println(k2);
     System.out.println(k3);
     System.out.println(k4);
@@ -19,7 +18,6 @@ public class Driver{
     System.out.println(k8);
     System.out.println(k9);
 
-    System.out.println(k1.solve(0,0));
     System.out.println(k2.solve(0,0));
     System.out.println(k3.solve(0,0));
     System.out.println(k4.solve(0,0));
@@ -27,9 +25,8 @@ public class Driver{
     System.out.println(k6.solve(0,0));
     System.out.println(k7.solve(0,0));
     System.out.println(k8.solve(0,0));
-    System.out.println(k9.solve(0,0));
+    //System.out.println(k9.solve(0,0));
 
-    System.out.println(k1);
     System.out.println(k2);
     System.out.println(k3);
     System.out.println(k4);
@@ -39,6 +36,22 @@ public class Driver{
     System.out.println(k8);
     System.out.println(k9);
 
-    System.out.println(k1.countSolutions(0,0));
+    k2.clear();
+    k3.clear();
+    k4.clear();
+    k5.clear();
+    k6.clear();
+    k7.clear();
+    k8.clear();
+    k9.clear();
+
+    System.out.println(k2.countSolutions(0,0));
+    System.out.println(k3.countSolutions(0,0));
+    System.out.println(k4.countSolutions(0,0));
+    System.out.println(k5.countSolutions(0,0));
+    System.out.println(k6.countSolutions(0,0)); // 304
+    //System.out.println(k7.countSolutions(0,0));
+    //System.out.println(k8.countSolutions(0,0));
+    //System.out.println(k9.countSolutions(0,0));
   }
 }
