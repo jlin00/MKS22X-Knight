@@ -51,6 +51,7 @@ public class KnightBoard{
         board[r][c] = 0;
       }
     }
+    initialize();
   }
 
   public boolean move(int row, int col, int level){
@@ -70,6 +71,27 @@ public class KnightBoard{
         }
       }
     }
+  }
+
+  //updates number of outgoing moves on board
+  private void updatePos(int row, int col){
+    for (int i = 0; i < diff.length; i++){
+      //if valid move, reduce number
+      if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)) positions[row][col]--;
+    }
+  }
+
+  //undos number of outgoing moves on board
+  private void undoPos(int row, int col){
+    for (int i = 0; i < diff.length; i++){
+      //if valid move, undo reduction
+      if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)) positions[row][col]++;
+    }
+  }
+
+  private int[] sortPos(){
+    int[] output = new int[8];
+    return output;
   }
 
   /**
