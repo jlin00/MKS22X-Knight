@@ -22,6 +22,20 @@ public class KnightBoard{
     return output;
   }
 
+  //prints out positions, for testing purposes
+  public String toStringPos(){
+    String output = "";
+    for (int r = 0; r < positions.length; r++){
+      for (int c = 0; c < positions[r].length; c++){
+        if (positions[r][c] < 10) output += " "; //space in front of single digit numbers
+        if (positions[r][c] == 0) output += "_ ";
+        else output += positions[r][c] + " "; //add number to output
+        if (c == positions[r].length - 1) output += "\n"; //new line
+      }
+    }
+    return output;
+  }
+
   public boolean isEmpty(){
     for (int r = 0; r < board.length; r++){
       for (int c = 0; c < board[r].length; c++){
@@ -44,6 +58,18 @@ public class KnightBoard{
     if (board[row][col] != 0) return false; //if knight has already been here, return false
     board[row][col] = level; //else move knight here
     return true;
+  }
+
+  //initializes the position board with possible number of moves for each square
+  public void initialize(){
+    for (int x = 0; x < positions.length; x++){
+      for (int y = 0; y < positions[x].length; y++){
+        for (int i = 0; i < diff.length; i++){
+          if (!(x + diff[i][0] >= positions.length || y + diff[i][1] >= positions[x].length || x + diff[i][0] < 0 || y + diff[i][1] < 0)) positions[x][y]++;
+          //if move is possible, add to positions
+        }
+      }
+    }
   }
 
   /**

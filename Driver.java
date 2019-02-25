@@ -49,9 +49,28 @@ public class Driver{
     System.out.println(k3.countSolutions(0,0));
     System.out.println(k4.countSolutions(0,0));
     System.out.println(k5.countSolutions(0,0));
-    System.out.println(k6.countSolutions(0,0)); // 304
+    System.out.println(k6.countSolutions(0,0));
     //System.out.println(k7.countSolutions(0,0));
     //System.out.println(k8.countSolutions(0,0));
     //System.out.println(k9.countSolutions(0,0));
+
+    k2.initialize();
+    k3.initialize();
+    k4.initialize();
+    k5.initialize();
+    k6.initialize();
+    k7.initialize();
+    k8.initialize();
+    k9.initialize();
+
+    System.out.println(k2.toStringPos());
+    System.out.println(k3.toStringPos());
+    System.out.println(k4.toStringPos());
+    System.out.println(k5.toStringPos());
+    System.out.println(k6.toStringPos());
+    System.out.println(k7.toStringPos());
+    System.out.println(k8.toStringPos());
+    System.out.println(k9.toStringPos());
+
   }
 }
