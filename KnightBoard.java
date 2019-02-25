@@ -96,6 +96,11 @@ public class KnightBoard{
     return false;
   }
 
+  //optimized helper method for solve
+  private boolean solveO(int row, int col, int level){
+    return true;
+  }
+
   /**
   *@throws IllegalStateException when the board contains non-zero values.
   *@throws IllegalArgumentException when either parameter is negative or out of bounds.
@@ -109,7 +114,8 @@ public class KnightBoard{
     return countH(startingRow,startingCol,1); //helper method
   }
 
-  public int countH(int row, int col, int level){
+  //helper method for count
+  private int countH(int row, int col, int level){
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return 0; //if any moves go out of bounds return false
     if (board[row][col] != 0) return 0;
     if (level == (board.length * board[0].length)) return 1;
@@ -122,6 +128,9 @@ public class KnightBoard{
     return count;
   }
 
-
+  //optimized helper method for count
+  private int countO(int row, int col, int level){
+    return 0;
+  }
 
 }
