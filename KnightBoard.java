@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class KnightBoard{
   private int[][] board; //keeps track of squares visited
   private int[][] positions; //keeps track of potential positions for optimization
@@ -36,7 +38,7 @@ public class KnightBoard{
     return output;
   }
 
-  public boolean isEmpty(){
+  public boolean isEmpty(){ //checks to see if board is empty
     for (int r = 0; r < board.length; r++){
       for (int c = 0; c < board[r].length; c++){
         if (board[r][c] != 0) return false;
@@ -45,19 +47,17 @@ public class KnightBoard{
     return true;
   }
 
-  public void clear(){
+  public void clear(){ //clears board
     for (int r = 0; r < board.length; r++){
       for (int c = 0; c < board[r].length; c++){
         board[r][c] = 0;
       }
     }
-    initialize();
   }
 
-  public boolean move(int row, int col, int level){
+  public boolean move(int row, int col){ //checks to see if move is valid
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false; //if any moves go out of bounds return false
     if (board[row][col] != 0) return false; //if knight has already been here, return false
-    board[row][col] = level; //else move knight here
     return true;
   }
 
@@ -89,9 +89,31 @@ public class KnightBoard{
     }
   }
 
-  private int[] sortPos(){
-    int[] output = new int[8];
-    return output;
+  private int[][] sortPos(int row, int col){
+    //add possible moves to output
+    int[][] output = new int[positions[row][col]][2]; //list of possible moves
+    int index = 0; //keeps track of list index
+    for (int i = 1; i < diff.length; i++){
+      if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)){ //if valid move
+        output[index][0] = diff[i][0];
+        output[index][1] = diff[i][1];
+        index++;
+      }
+    }
+
+    //sort possible moves in output using insertion sort
+    for (int i = 1; i < output.length; i++){
+      int old_val = positions[row + output[i][0]][col + output[i][1]]; //sort by number of outgoing moves
+      int j;
+      for (j = i; j > 0 && old_val < positions[row + output[j - 1][0]][col + output[j - 1][1]]; j--){
+        output[j][0] = output[j - 1][0]; //shifts down by one
+        output[j][1] = output[j - 1][1];
+      }
+      output[j][0] = output[i][0]; //performs the insertion
+      output[j][1] = output[i][1];
+    }
+
+    return output; //returns sorted list of moves
   }
 
   /**
@@ -110,7 +132,8 @@ public class KnightBoard{
   private boolean solveH(int row, int col, int level){
     if (level > (board.length * board[0].length)) return true; //if filled up board, return true
     for (int i = 0; i < diff.length; i++){ //loop through possible moves
-      if (move(row,col,level)){
+      if (move(row,col)){
+        board[row][col] = level;
         if (solveH(row + diff[i][0], col + diff[i][1],level+1)) return true; //try moving knight
         board[row][col] = 0; //try different position instead
       }
@@ -120,6 +143,7 @@ public class KnightBoard{
 
   //optimized helper method for solve
   private boolean solveO(int row, int col, int level){
+    if (level > (board.length * board[0].length)) return true; //if filled up board, return true;
     return true;
   }
 
