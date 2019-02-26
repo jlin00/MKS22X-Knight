@@ -98,8 +98,7 @@ public class KnightBoard{
     int index = 0; //keeps track of list index
     for (int i = 0; i < diff.length; i++){
       if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)){ //if valid move
-        output[index][0] = diff[i][0];
-        output[index][1] = diff[i][1];
+        output[index] = diff[i];
         index++;
       }
     }
@@ -154,7 +153,6 @@ public class KnightBoard{
     if (board[row][col] != 0) return false; //if knight has already been here, return false
 
     int[][] tryMoves = sortPos(row, col); //creates list of moves to tryMoves
-    System.out.println(tryMoves.toString());
     for (int i = 0; i < tryMoves.length; i++){ //loop through possible moves
       board[row][col] = level;
       updatePos(row,col);
