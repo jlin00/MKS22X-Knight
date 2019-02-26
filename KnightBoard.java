@@ -56,6 +56,14 @@ public class KnightBoard{
     }
   }
 
+  public void clearPos(){ //clears positions
+    for (int r = 0; r < positions.length; r++){
+      for (int c = 0; c < positions[r].length; c++){
+        positions[r][c] = 0;
+      }
+    }
+  }
+
   /*
   public boolean move(int row, int col){ //checks to see if move is valid
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false; //if any moves go out of bounds return false

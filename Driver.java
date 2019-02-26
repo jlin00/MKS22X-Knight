@@ -1,28 +1,54 @@
 public class Driver{
   public static void main(String[] args) {
-    KnightBoard one = new KnightBoard(1,1);
-    KnightBoard two = new KnightBoard(2,2);
-    KnightBoard three = new KnightBoard(3,3);
-    KnightBoard four = new KnightBoard(4,4);
-    KnightBoard five = new KnightBoard(5,5);
-    KnightBoard six = new KnightBoard(6,6);
-    KnightBoard seven = new KnightBoard(7,7);
-    KnightBoard eight = new KnightBoard(8,8);
-    KnightBoard nine = new KnightBoard(9,9);
-    KnightBoard ten = new KnightBoard(10,10);
-    KnightBoard[] q = new KnightBoard[] {
-      one, two, three, four, five, six, seven, eight, nine, ten
-    };
-    for (KnightBoard e : q) {
-      System.out.println("Board: \n" + e.toString());
-      System.out.println("Solveable? " + e.solve(0,0));
-      e.clear();
-    //  System.out.println("Solutions: " + e.countSolutions(0,0));
-      if (e.solve(0,0)) {
-        System.out.println("Example: \n" + e.toString());
+
+    int n = 10;
+    KnightBoard k;
+    for (int i = 1; i < n; i++){
+      k = new KnightBoard(i,i);
+      System.out.println("Board: \n" + k.toString());
+      System.out.println("Solveable? " + k.solve(0,0));
+      k.clear();
+      k.clearPos();
+      k.initialize();
+      if (k.solve(0,0)){
+        System.out.println("Example: \n" + k.toString());
       }
-      e.clear();
-      System.out.println("--------------------------");
+      k.clear();
+      System.out.println("----------------------------");
+    }
+
+    runTest(0);
+    runTest(1);
+    runTest(2);
+    runTest(3);
+    runTest(4);
+  }
+//testcase must be a valid index of your input/output array
+public static void runTest(int i){
+
+  KnightBoard b;
+  int[] m =   {4,5,5,5,5};
+  int[] n =   {4,5,4,5,5};
+  int[] startx = {0,0,0,1,2};
+  int[] starty = {0,0,0,1,2};
+  int[] answers = {0,304,32,56,64};
+  if(i >= 0 ){
+    try{
+      int correct = answers[i];
+      b = new KnightBoard(m[i%m.length],n[i%m.length]);
+
+      int ans  = b.countSolutions(startx[i],starty[i]);
+
+      if(correct==ans){
+        System.out.println("PASS board size: "+m[i%m.length]+"x"+n[i%m.length]+" "+ans);
+      }else{
+        System.out.println("FAIL board size: "+m[i%m.length]+"x"+n[i%m.length]+" "+ans+" vs "+correct);
+      }
+    }catch(Exception e){
+      System.out.println("FAIL Exception case: "+i);
+
     }
   }
+}
+
 }
