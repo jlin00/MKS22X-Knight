@@ -1,9 +1,7 @@
-import java.util.*;
-
 public class KnightBoard{
   private int[][] board; //keeps track of squares visited
   private int[][] positions; //keeps track of potential positions for optimization
-  private int[][] diff = {{1,2},{1,-2},{-1,2},{-1,-2},{2,1},{2,-1},{-2,1},{-2,-1}}; //8 possible moves for a knight
+  private int[][] diff = {{2,1},{2,-1},{-2,1},{-2,-1},{1,2},{-1,-2},{1,-2},{-1,2}}; //8 possible moves for a knight
 
   public KnightBoard(int startingRows, int startingCols){
     if (startingRows <= 0 || startingCols <= 0) throw new IllegalArgumentException();
@@ -56,63 +54,39 @@ public class KnightBoard{
     }
   }
 
-  public void clearPos(){ //clears positions
-    for (int r = 0; r < positions.length; r++){
-      for (int c = 0; c < positions[r].length; c++){
-        positions[r][c] = 0;
-      }
-    }
+  private boolean outOfBounds(int row, int col){
+    return row < 0 || row >= board.length || col < 0 || col >= board[0].length;
   }
-
-  /*
-  public boolean move(int row, int col){ //checks to see if move is valid
-    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) return false; //if any moves go out of bounds return false
-    if (board[row][col] != 0) return false; //if knight has already been here, return false
-    return true;
-  }
-  */
 
   //initializes the position board with possible number of moves for each square
   public void initialize(){
-    for (int x = 0; x < positions.length; x++){
-      for (int y = 0; y < positions[x].length; y++){
+    for (int row = 0; row < positions.length; row++){
+      for (int col = 0; col < positions[row].length; col++){
         for (int i = 0; i < diff.length; i++){
-          if (!(x + diff[i][0] >= positions.length || y + diff[i][1] >= positions[x].length || x + diff[i][0] < 0 || y + diff[i][1] < 0)) positions[x][y]++;
-          //if move is possible, add to positions
+          if (!outOfBounds(row + diff[i][0], col + diff[i][1])) positions[row][col]++; //if move is possible, add to positions
         }
       }
-    }
-  }
-
-  //updates number of outgoing moves on board
-  private void updatePos(int row, int col){
-    for (int i = 0; i < diff.length; i++){
-      //if valid move, reduce number
-      if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)) positions[row][col]--;
-    }
-  }
-
-  //undos number of outgoing moves on board
-  private void undoPos(int row, int col){
-    for (int i = 0; i < diff.length; i++){
-      //if valid move, undo reduction
-      if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)) positions[row][col]++;
     }
   }
 
   private int[][] sortPos(int row, int col){
     //add possible moves to output
     int[][] output = new int[positions[row][col]][2]; //list of possible moves
+    //System.out.println(output[0].length);
     int index = 0; //keeps track of list index
     for (int i = 0; i < diff.length; i++){
-      if (!(row + diff[i][0] >= positions.length || col + diff[i][1] >= positions[row].length || row + diff[i][0] < 0 || col + diff[i][1] < 0)){ //if valid move
-        output[index] = diff[i];
-        index++;
+      if (!(row + diff[i][0] >= positions.length ||
+      col + diff[i][1] >= positions[row].length ||
+      row + diff[i][0] < 0 ||
+      col + diff[i][1] < 0)){ //if valid move
+        if (board[row + diff[i][0]][col + diff[i][1]] == 0){
+          output[index] = diff[i];
+          index++;
+        }
       }
     }
 
     //sort possible moves in output using insertion sort
-
     for (int i = 1; i < output.length; i++){
       int[] old_val = output[i]; //sort by number of outgoing moves
       int j;
@@ -163,10 +137,11 @@ public class KnightBoard{
     int[][] tryMoves = sortPos(row, col); //creates list of moves to tryMoves
     for (int i = 0; i < tryMoves.length; i++){ //loop through possible moves
       board[row][col] = level;
-      updatePos(row,col);
-      if (solveO(row + tryMoves[i][0], col + tryMoves[i][1],level+1)) return true; //try  moving knight
+      //System.out.println(toStringPos()); //debugging purposes
+      if (solveO(row + tryMoves[i][0], col + tryMoves[i][1],level+1))
+        return true; //try  moving knight
+
       board[row][col] = 0; //try different position instead
-      undoPos(row,col);
     }
     return false;
   }
