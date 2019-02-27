@@ -44,6 +44,7 @@ public class KnightBoard{
         board[r][c] = 0;
       }
     }
+    initialize();
   }
 
   //checks to see if row and col are out of bounds
@@ -55,9 +56,11 @@ public class KnightBoard{
   private void initialize(){
     for (int row = 0; row < positions.length; row++){
       for (int col = 0; col < positions[row].length; col++){
+        int count = 0;
         for (int i = 0; i < diff.length; i++){
-          if (!outOfBounds(row + diff[i][0], col + diff[i][1])) positions[row][col]++; //if move is possible, add to positions
+          if (!outOfBounds(row + diff[i][0], col + diff[i][1])) count++; //if move is possible, add to positions
         }
+        positions[row][col] = count;
       }
     }
   }

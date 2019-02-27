@@ -34,6 +34,12 @@ public class Driver{
       System.out.println("No solution");
     }
     k2.clear();
+    if (k2.solve(1,1)){
+      System.out.println("Solution: \n" + k2.toString());
+    }
+    else{
+      System.out.println("No solution");
+    }
     System.out.println("\nEND OF TESTING");
 
   }
