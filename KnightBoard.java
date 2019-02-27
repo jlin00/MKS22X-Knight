@@ -28,7 +28,7 @@ public class KnightBoard{
   }
 
   //checks to see if board is empty
-  public boolean isEmpty(){
+  private boolean isEmpty(){
     for (int r = 0; r < board.length; r++){
       for (int c = 0; c < board[r].length; c++){
         if (board[r][c] != 0) return false;
